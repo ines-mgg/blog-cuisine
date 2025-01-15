@@ -7,7 +7,7 @@ export default function Crud() {
     { link: "/roles", label: "Tous les rôles" },
     { link: "/categories", label: "Tous les catégories" },
     { link: "/users", label: "Tous les utilisateurs" },
-    { link: "/recipes", label: "Tous les recettes" },
+    { link: "/allRecipes", label: "Tous les recettes" },
   ];
   return (
     <>
