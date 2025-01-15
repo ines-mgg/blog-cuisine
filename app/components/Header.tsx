@@ -19,7 +19,7 @@ export default function Header() {
         </div>
 
         <div>
-          <Link to="/profile" className="p-2">
+          <Link to="/login" className="p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
