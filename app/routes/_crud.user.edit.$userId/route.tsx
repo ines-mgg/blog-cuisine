@@ -4,7 +4,7 @@ import loader from "./editLoader";
 
 export { action, loader };
 
-export default function Roles() {
+export default function UserEdit() {
   return (
     <>
       <span className="text-black font-semibold text-2xl">

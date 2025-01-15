@@ -5,7 +5,7 @@ import Paginate from "~/components/Paginate";
 import DataCard from "~/components/DataCard";
 
 export { loader };
-export default function Roles() {
+export default function AllRecipes() {
   const { recipes, query, page, lastPage } = useLoaderData<typeof loader>();
   return (
     <>
@@ -15,7 +15,7 @@ export default function Roles() {
       <div className="flex justify-between items-center">
         <SearchForm query={query} title="Rechercher une recette" />
         <NavLink
-          to={"/recipe/new"}
+          to={"/allRecipe/new"}
           className="mr-4 px-5 py-2 bg-[#FF6B35] text-white rounded text-sm font-bold"
         >
           Créer une recette

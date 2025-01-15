@@ -6,7 +6,7 @@ import DataCard from "~/components/DataCard";
 
 export { loader, action };
 
-export default function RoleId() {
+export default function UserId() {
   const { role, user, recipes } = useLoaderData<typeof loader>();
 
   return (

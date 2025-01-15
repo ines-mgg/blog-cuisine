@@ -1,14 +1,14 @@
 import CreateForm from "./createForm";
-import action from "./createUserAction";
-import loader from "./rolesLoader";
+import action from "./createRecipeAction";
+import loader from "./createLoader";
 
 export { action, loader };
 
-export default function NewUser() {
+export default function NewRecipe() {
   return (
     <>
       <span className="text-black font-semibold text-2xl">
-        Ajouter un utilisateur
+        Ajouter une nouvelle recette
       </span>
       <CreateForm />
     </>

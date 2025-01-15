@@ -1,11 +1,11 @@
 import { useLoaderData, NavLink } from "@remix-run/react";
 import loader from "./getRecipe";
 import action from "./deleteRecipeAction";
-import DeleteForm from "./deleteForm";;
+import DeleteForm from "./deleteForm";
 
 export { loader, action };
 
-export default function RoleId() {
+export default function RecipeId() {
   const { user, recipe, category } = useLoaderData<typeof loader>();
 
   return (

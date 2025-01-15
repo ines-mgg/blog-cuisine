@@ -5,7 +5,7 @@ import Paginate from "~/components/Paginate";
 import DataCard from "~/components/DataCard";
 
 export { loader };
-export default function Roles() {
+export default function Users() {
   const { users, query, page, lastPage } = useLoaderData<typeof loader>();
   return (
     <>

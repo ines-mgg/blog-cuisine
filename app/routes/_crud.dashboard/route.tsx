@@ -90,7 +90,7 @@ export default function Dashboard() {
           ))}
         </div>
         <NavLink
-          to={"/recipe/new"}
+          to={"/allRecipe/new"}
           className="mr-4 px-5 py-2 bg-[#FF6B35] text-white rounded text-sm font-bold self-end"
         >
           Créer une recette
