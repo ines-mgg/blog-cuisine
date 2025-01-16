@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
-const process = require('process');
+const bcrypt = require("bcrypt");
+const process = require("process");
 const prisma = new PrismaClient();
 
 async function main() {
@@ -27,7 +28,7 @@ async function main() {
   const user1 = await prisma.user.create({
     data: {
       email: "unique_user1@example.com",
-      password: "password1",
+      password: await bcrypt.hash("password1", 10),
       roleId: roleUser.id,
     },
   });
@@ -36,7 +37,7 @@ async function main() {
   const user2 = await prisma.user.create({
     data: {
       email: "unique_user2@example.com",
-      password: "password2",
+      password: await bcrypt.hash("password2", 10),
       roleId: roleAuthor.id,
     },
   });
@@ -45,7 +46,7 @@ async function main() {
   const user3 = await prisma.user.create({
     data: {
       email: "unique_user3@example.com",
-      password: "password3",
+      password: await bcrypt.hash("password3", 10),
       roleId: roleAdmin.id,
     },
   });
@@ -68,22 +69,12 @@ async function main() {
   await prisma.recipe.create({
     data: {
       title: "Chocolate Cake",
-      content: "Delicious chocolate cake recipe...",
+      content: "Delicious chocolate cake recipe",
       categoryId: category1.id,
       userId: user2.id,
     },
   });
-  console.log("Recipe 1 created");
-
-  await prisma.recipe.create({
-    data: {
-      title: "Grilled Chicken",
-      content: "Tasty grilled chicken recipe...",
-      categoryId: category2.id,
-      userId: user3.id,
-    },
-  });
-  console.log("Recipe 2 created");
+  console.log("Recipe created: Chocolate Cake");
 }
 
 main()
