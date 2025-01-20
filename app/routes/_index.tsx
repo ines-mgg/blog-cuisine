@@ -1,11 +1,21 @@
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
+import type { LoaderFunction } from "@remix-run/node";
+import { getSession } from "~/server/session.server";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("cookie"));
+  const user = session.get("user");
+  return { user };
+};
 
 export default function Index() {
+  const { user } = useLoaderData<{ user?: { roleName: string } }>();
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header user={user} />
 
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-4 py-12">
