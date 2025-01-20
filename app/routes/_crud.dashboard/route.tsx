@@ -1,8 +1,20 @@
 import DataCard from "~/components/DataCard";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import loader from "./dashboardLoader";
+import dashboardLoader from "./dashboardLoader";
+import { requireAuthentication } from "~/server/auth.server";
+import { hasRole } from "~/utils/authorization";
+import type { LoaderFunction } from "@remix-run/node";
 
-export { loader };
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await requireAuthentication(request);
+
+  const isAuthorized = await hasRole(user, "Admin");
+  if (!isAuthorized) {
+    throw new Response("Accès interdit", { status: 403 });
+  }
+
+  return dashboardLoader();
+};
 
 export default function Dashboard() {
   const { latestRoles, latestCategories, latestRecipes, latestUsers } =

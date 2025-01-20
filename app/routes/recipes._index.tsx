@@ -4,8 +4,12 @@ import { database } from "~/utils/db.server";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
 import RecipeCard from "~/components/RecipeCard";
+import { getSession } from "~/server/session.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const session = await getSession(request.headers.get("cookie"));
+  const user = session.get("user");
+
   const recipes = await database.recipe.findMany({
     include: {
       category: true,
@@ -20,15 +24,16 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     },
   });
 
-  return { recipes };
+  return { user, recipes };
 };
 
 export default function Recipes() {
   const { recipes } = useLoaderData<typeof loader>();
+  const { user } = useLoaderData<{ user?: { roleName: string } }>();
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header user={user} />
 
       <main className="flex-1">
         <div className="max-w-6xl mx-auto px-4 py-12">

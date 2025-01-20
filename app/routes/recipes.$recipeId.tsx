@@ -3,8 +3,12 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { database } from "~/utils/db.server";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
+import { getSession } from "~/server/session.server";
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const session = await getSession(request.headers.get("cookie"));
+  const user = session.get("user");
+
   const recipe = await database.recipe.findUnique({
     where: { id: params.recipeId },
     include: {
@@ -26,15 +30,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     throw new Response("Recette non trouvée", { status: 404 });
   }
 
-  return { recipe };
+  return { user, recipe };
 };
 
 export default function RecipeDetail() {
   const { recipe } = useLoaderData<typeof loader>();
+  const { user } = useLoaderData<{ user?: { roleName: string } }>();
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header user={user} />
 
       <main className="flex-1">
         <article className="max-w-4xl mx-auto px-4 py-12">

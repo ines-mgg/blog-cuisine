@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-export default function Header() {
+export default function Header({ user }: { user?: { roleName: string } }) {
   return (
     <header className="border-b py-4">
       <nav className="max-w-6xl mx-auto px-4 flex justify-between items-center">
@@ -16,6 +16,11 @@ export default function Header() {
           <Link to="/recipes" className="hover:text-[#FF6B35] transition">
             Recettes
           </Link>
+          {user?.roleName === "Admin" && (
+            <Link to="/dashboard" className="hover:text-[#FF6B35] transition">
+              Dashboard
+            </Link>
+          )}
         </div>
 
         <div>
